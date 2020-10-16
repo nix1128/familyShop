@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Traits\FlashMessages;
 use App\Traits\UploadAble;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Contracts\ProductContract;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 class ProductImageController extends Controller
 {
     use UploadAble;
+    use FlashMessages;
 
     protected $productRepository;
 
@@ -19,11 +23,16 @@ class ProductImageController extends Controller
         $this->productRepository = $productRepository;
     }
 
+
+
+
+
     public function upload(Request $request)
     {
         $product = $this->productRepository->findProductById($request->product_id);
 
         if ($request->has('image')) {
+
 
             $image = $this->uploadOne($request->image, 'products');
 
@@ -32,6 +41,9 @@ class ProductImageController extends Controller
             ]);
 
             $product->images()->save($productImage);
+        }
+        else {
+
         }
 
         return response()->json(['status' => 'Success']);

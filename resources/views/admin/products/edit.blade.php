@@ -1,8 +1,17 @@
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+{{-- ...Some more scripts... --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+
+
+
 @extends('admin.app')
 @section('title') {{ $pageTitle }} @endsection
-@section('styles')
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/js/plugins/dropzone/dist/min/dropzone.min.css') }}"/>
-@endsection
+
 @section('content')
     <div class="app-title">
         <div>
@@ -81,7 +90,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-10">
                                         <div class="form-group">
                                             <label class="control-label" for="categories">Categories</label>
                                             <select name="categories[]" id="categories" class="form-control" multiple>
@@ -244,13 +253,15 @@
 @endsection
 @push('scripts')
 <script type="text/javascript" src="{{ asset('backend/js/plugins/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('backend/js/plugins/dropzone/dist/min/dropzone.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('backend/js/plugins/bootstrap-notify.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('backend/js/app.js') }}"></script>
+
+
+
 <script>
     Dropzone.autoDiscover = false;
+    $('#categories').select2();
     $( document ).ready(function() {
-        $('#categories').select2();
+
+
         let myDropzone = new Dropzone("#dropzone", {
             paramName: "image",
             addRemoveLinks: false,
@@ -260,6 +271,9 @@
             url: "{{ route('admin.products.images.upload') }}",
             autoProcessQueue: false,
         });
+
+
+
         myDropzone.on("queuecomplete", function (file) {
             window.location.reload();
             showNotification('Completed', 'All product images uploaded', 'success', 'fa-check');
@@ -283,7 +297,7 @@
                 placement: {
                     from: "top",
                     align: "right"
-                },
+                }
             });
         }
     });

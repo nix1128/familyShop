@@ -2,13 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductImage extends Model
 {
-    use HasFactory;
-
     /**
      * @var string
      */
@@ -17,7 +14,7 @@ class ProductImage extends Model
     /**
      * @var array
      */
-    protected $fillable = ['product_id', 'thumbnail', 'full'];
+    protected $fillable = ['product_id', 'full'];
 
     /**
      * @var array
@@ -33,6 +30,4 @@ class ProductImage extends Model
     {
         return $this->belongsTo(Product::class);
     }
-
-
 }
